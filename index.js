@@ -32,6 +32,10 @@ if(process.env.NODE_ENV === 'production'){
 // routes
 app.use('/api/auth',auth)
 
+// error handling
+app.use(control.notFound)
+app.use(control.errors)
+
 const port = process.env.PORT || 8080
 
 app.listen(port,()=>{
