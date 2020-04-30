@@ -11,6 +11,9 @@ const control = require('./controllers')
 const db = require('./models')
 const {auth} = require('./routes')
 
+// connect DB
+require('./db/mongoose')
+
 //cors middleware
 app.use(cors())
 
