@@ -9,7 +9,7 @@ const path = require('path')
 
 const control = require('./controllers')
 const db = require('./models')
-const routes = require('./routes')
+const {auth} = require('./routes')
 
 //cors middleware
 app.use(cors())
@@ -28,6 +28,9 @@ if(process.env.NODE_ENV === 'production'){
         res.sendFile(path.resolve(__dirname,'client','build','index.html'))
     })
 }
+
+// routes
+app.use('/api/auth',auth)
 
 const port = process.env.PORT || 8080
 
