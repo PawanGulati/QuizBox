@@ -60,11 +60,10 @@ userSchema.methods.generateToken = async function () {
             _id,
             userName
         }
-        const token = jwt.sign(payload, process.env.SECRET_KEY, {
+        const token = await jwt.sign(payload, process.env.SECRET_KEY, {
             algorithm: 'HS512',
             expiresIn: 3600*24 //1 DAY
         })
-
         return token
     } catch (err) {
         return next(Error('No token generated'))
@@ -72,9 +71,9 @@ userSchema.methods.generateToken = async function () {
 }
 
 // Used when SIGN IN check credentials
-userSchema.statics.findByCredentials = async function ({userName,password},next){
+userSchema.statics.findByCredentials = async function ({email,password},next){
     try{
-        const user = await db.User.findOne({userName})        
+        const user = await db.User.findOne({email})        
 
         if(!user){
             throw new Error('No user exists')
