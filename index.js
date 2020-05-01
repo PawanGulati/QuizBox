@@ -9,7 +9,7 @@ const path = require('path')
 
 const control = require('./controllers')
 const db = require('./models')
-const {auth} = require('./routes')
+const {auth,quiz} = require('./routes')
 
 // connect DB
 require('./db/mongoose')
@@ -34,6 +34,7 @@ if(process.env.NODE_ENV === 'production'){
 
 // routes
 app.use('/api/auth',auth)
+app.use('/api/quiz',quiz)
 
 // error handling
 app.use(control.notFound)

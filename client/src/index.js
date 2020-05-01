@@ -4,9 +4,30 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import {ThemeProvider,createMuiTheme} from '@material-ui/core'
+
+import {BrowserRouter} from 'react-router-dom'
+
+const theme = createMuiTheme({
+  palette:{
+    primary:{
+      main:'#5F4B8B'
+    }
+  }
+})
+
+
+const app = (
+  <ThemeProvider theme={theme}>
+    <BrowserRouter>
+      <App/>
+    </BrowserRouter>
+  </ThemeProvider>
+)
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {app}
   </React.StrictMode>,
   document.getElementById('root')
 );
