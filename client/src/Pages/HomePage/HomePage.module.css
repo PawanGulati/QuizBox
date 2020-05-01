@@ -1,0 +1,12 @@
+.root{
+    height:100vh;
+    width: 100%;
+    /* position:absolute; */
+    /* bottom: 0; */
+}
+
+.root > section{
+    height: 100%;
+    /* border:2px solid black; */
+    color:rgb(228, 156, 144)
+}
