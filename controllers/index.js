@@ -1,5 +1,7 @@
 module.exports = {
     ...require('./auth'),
+    ...require('./quiz'),
+
 }
 
 module.exports.notFound = (req,res,next)=>{

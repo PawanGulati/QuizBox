@@ -3,23 +3,26 @@ const mongoose = require('mongoose')
 const db = require('../models');
 
 const QuizSchema = new mongoose.Schema({
+    no_of_questions:{
+        type:Number,
+        required:true
+    },
     questions:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Question'
     }],
-    Name:{
+    name:{
         type:String,
-        trim:true
+        trim:true,
+        required:true,
     },
     author:{
-        type:String,
-        trim:true
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
     },
-    startTime:{
-        type: Date
-    },
-    endTime:{
-        type: Date
+    alloted_time:{
+        type:Number,
+        required:true
     }
 },{timestamps:true})
 
