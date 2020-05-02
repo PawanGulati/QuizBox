@@ -25,5 +25,19 @@ router.route('/end/:id')
 //     .delete(control.deleteQuiz)
 //     .patch(control.updateQuiz)
 
+// ==========================================================================
+
+// show all my questions and create question
+router.route('/:quizId/question')
+    .get(control.showQuestions)
+    .post(auth,control.createQuestion)
+
+// see a ques, ans a ques, delete a ques, update a ques 
+router.route('/:quizId/question/:id')
+    .get(auth,control.showQuestion)
+    .post(control.answerQuestion)
+    // .delete(control.deleteQuestion)  // TODO: Will see you later
+    // .patch(control.updateQuestion)        
+
 
 module.exports = router    
