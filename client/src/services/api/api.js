@@ -7,13 +7,9 @@ Axios.defaults.baseURL = 'http://localhost:8080'
 
 // Axios calling function
 export const call = async (method, path, data) => {
-        try {
             const response = await Axios[method](`/api/${path}`, data)
-
+            
             return response.data
-        } catch (error) {
-            auth_fail({message:error.message})
-        }
 }
 
 //Axios setHeader function

@@ -1,20 +1,20 @@
 import {createSelector} from 'reselect'
 
 // input selectors
-const selectQuiz = state => state.selectQuiz
+const selectQuiz = state => state.quiz
 
 // output selectors
-const selectQuizzes = createSelector(
+export const selectQuizzes = createSelector(
     [selectQuiz],
     quiz => quiz.quizzes
 )
 
-const selectCurQuiz = createSelector(
+export const selectCurQuiz = createSelector(
     [selectQuiz],
     quiz => quiz.quiz
 )
 
-const selectQuizCount = createSelector(
+export const selectQuizCount = createSelector(
     [selectQuizzes],
     quizzes => quizzes.length
 )

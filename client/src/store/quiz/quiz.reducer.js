@@ -1,4 +1,4 @@
-import {CREATE_QUIZ, QUIZ_FAIL} from './quiz.types'
+import {SET_QUIZ,SET_QUIZZES, QUIZ_FAIL} from './quiz.types'
 
 const initialState = {
     quizzes:[],
@@ -9,11 +9,16 @@ const initialState = {
 
 export const quizReducer = (state=initialState,action) =>{
     switch (action.type) {
-        case CREATE_QUIZ:
+        case SET_QUIZ:
             return {
                 ...state,
-                quizzes:[...state.quizzes,action.quiz],
                 quiz:action.quiz,
+                error:null
+            }
+        case SET_QUIZZES:
+            return{
+                ...state,
+                quizzes:action.quizzes,
                 error:null
             }
         case QUIZ_FAIL:
