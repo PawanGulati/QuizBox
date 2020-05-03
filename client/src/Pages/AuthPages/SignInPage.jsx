@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {createStructuredSelector} from 'reselect'
+import {selectCurrentUser} from '../../store/user/user.selector'
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +16,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import { connect } from 'react-redux';
+import {setCurUser, auth_fail} from '../../store/user/user.action'
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,23 +40,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+const mapDispatchToProps = dispatch =>({
+  setCurUser : (path,data) => dispatch(setCurUser(path,data)),
+  auth_fail : error => dispatch(auth_fail(error))
+})
+
+const mapStateToProps = createStructuredSelector({
+  current_user:selectCurrentUser
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(function SignIn({setCurUser,auth_fail,history,current_user}) {
   const classes = useStyles();
 
   const [inputs,setInputs] = useState({email:'',password:''})
 
-  const signInHandler = (e) =>{
+  const signInHandler = e =>{
     e.preventDefault()
-    console.log(inputs);
-    
-    
-    // clearing form
-    setInputs({
-        email:'',
-        password:''
-    })
+    try {
+        setCurUser('login',inputs)
+      
+      // clearing form
+      setInputs({
+          email:'',
+          password:''
+      })  
 
+    } catch (error) {
+      auth_fail({message:error.message})  
+    }
   }
+  
+  // Don't mind this I just made it for fun
+  useEffect(()=>{
+    if(history.location.search){alert("Login First")}
+  },[])  
 
   const inputHandler = ({target:{value,name}}) =>{
     setInputs({
@@ -62,6 +85,7 @@ export default function SignIn() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      {current_user?<Redirect to='/dashboard'/>:null}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -125,4 +149,4 @@ export default function SignIn() {
       </div>
     </Container>
   );
-}
+})

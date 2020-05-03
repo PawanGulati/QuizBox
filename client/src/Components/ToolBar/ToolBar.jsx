@@ -1,4 +1,7 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {createStructuredSelector} from 'reselect'
+import {selectCurrentUser} from '../../store/user/user.selector'
 
 import {makeStyles, CssBaseline} from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
@@ -16,7 +19,7 @@ import Drawer from '@material-ui/core/Drawer';
 
 
 import {Link} from 'react-router-dom'
-import { ListItems } from '../DashBoard/listItems';
+import ListItems  from '../DashBoard/listItems';
 
 const drawerWidth = 240;
 
@@ -60,6 +63,12 @@ const useStyles = makeStyles(theme=>({
       },
       title: {
         flexGrow: 1,
+        fontFamily:'\'Barlow\', sans-serif',
+        fontSize:'2em',
+        letterSpacing:'1em',
+        wordSpacing:'1em',
+        marginLeft:'2em'
+
       },
       drawerPaper: {
         backgroundColor:theme.palette.primary.main,
@@ -85,10 +94,12 @@ const useStyles = makeStyles(theme=>({
       },
 }))
 
-export default () => {
-    const classes = useStyles()
-    
+const mapStateToProps = createStructuredSelector({
+  current_user:selectCurrentUser
+})
 
+export default connect(mapStateToProps)(({current_user}) => {
+    const classes = useStyles()
 
     const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
@@ -113,13 +124,18 @@ export default () => {
                     <MenuIcon />
                 </IconButton>
                 <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                    MY tutor247
+                    QUIZ BOX
                 </Typography>
-                <IconButton color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                    <NotificationsIcon />
-                    </Badge>
-                </IconButton>
+                <div style={{display:'flex',alignItems:'center'}}>
+                  {current_user ? <Typography component="h6" variant="h6" color="inherit" noWrap style={{ fontSize:'1.2em',marginRight:'.5em'}}>
+                    {`Welcome, ${current_user.userName.split('')[0].toUpperCase() + current_user.userName.slice(1)}`} 
+                  </Typography> : null}
+                  <IconButton color="inherit">
+                      <Badge badgeContent={4} color="secondary">
+                      <NotificationsIcon />
+                      </Badge>
+                  </IconButton>
+                </div>
             </Toolbar>
         </AppBar>
         <Drawer
@@ -135,8 +151,8 @@ export default () => {
             </IconButton>
             </div>
             <Divider />
-            <List>{ListItems}</List>
+            <List><ListItems/></List>
         </Drawer>
         </div>
     )
-}
+})

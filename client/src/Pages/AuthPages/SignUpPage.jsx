@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {Redirect} from 'react-router-dom'
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +14,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+import { connect } from 'react-redux';
+import { setCurUser, auth_fail } from '../../store/user/user.action';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,24 +40,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+const mapDispatchToProps = dispatch =>({
+  setCurUser : (path,data) => dispatch(setCurUser(path,data)),
+  auth_fail : error => dispatch(auth_fail(error))
+})
+
+export default connect(null,mapDispatchToProps)(function SignUp({setCurUser,auth_fail}) {
   const classes = useStyles();
 
     const [inputs,setInputs] = useState({userName:'',email:'',password:'',conform_password:''})
 
   const signUpHandler = (e) =>{
         e.preventDefault()
-        console.log(inputs);
-        
-        
-        // clearing form
-        setInputs({
+
+        try {
+
+          const {password,conform_password} = inputs
+
+          if(password !== conform_password){
+            throw new Error('Password\'s Incorrect')
+          }
+
+          setCurUser('register',inputs)
+
+          // clearing form
+          setInputs({
             userName:'',
             email:'',
             password:'',
             conform_password:''
-        })
-
+          })
+        } catch (error) {
+          auth_fail({message:error.message})
+        }
   }
 
   const inputHandler = ({target:{value,name}}) =>{
@@ -65,6 +85,7 @@ export default function SignUp() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      {this.props.current_user?<Redirect to='/dashboard'/>:null}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -156,4 +177,4 @@ export default function SignUp() {
       </div>
     </Container>
   );
-}
+})

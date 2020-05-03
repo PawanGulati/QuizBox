@@ -9,8 +9,7 @@
     "client-install": "npm install --prefix client",
     "server": "nodemon index.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\" ",
-    "mongo": "C:/Users/user/mongodb/bin/mongod.exe --dbpath=/Users/user/mongodb-data"
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
   },
   "author": "Pawan",
   "license": "ISC",
