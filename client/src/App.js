@@ -12,7 +12,7 @@ import decode from 'jwt-decode'
 import { setCurUser, auth_fail, auth_success } from './store/user/user.action';
 import { setToken } from './services/api/api';
 
-import store from './store'
+import {store} from './store'
 
 if(localStorage.jwtToken){
   setToken(localStorage.jwtToken)
