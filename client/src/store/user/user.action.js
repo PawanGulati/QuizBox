@@ -24,7 +24,6 @@ export const setCurUser = (path,data) =>{
     return async dispatch =>{
         try {
             const {token, ...user} = await api.call('post',`auth/${path}`,data)
-            console.log(token,user);   
 
             setToken(token) 
             
@@ -33,10 +32,8 @@ export const setCurUser = (path,data) =>{
             )
             dispatch(auth_success(user))
         } catch (err) {
-            // console.log(err.response);
-            
             const {error} = err.response.data
-            
+
             dispatch(auth_fail(error))
         }
     }

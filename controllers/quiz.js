@@ -52,6 +52,8 @@ exports.showMyQuizzes = async(req,res,next) =>{
         const user = await db.User.findById({_id:userId})
 
         res.status(200).json(user.quizzesCreated)
+
+        next()
          
     } catch (error) {
         next({
@@ -63,7 +65,7 @@ exports.showMyQuizzes = async(req,res,next) =>{
 
 // exports.startQuiz = async(req,res,next) =>{
 //     try {
-         
+            
 //     } catch (error) {
 //         next({
 //             status:400,
@@ -71,12 +73,12 @@ exports.showMyQuizzes = async(req,res,next) =>{
 //         })
 //     }
 // }
-
+    
 // We will place a setTimeOut in frontEnd when that is over, this API call is placed and answers will be submitted  
 // Well I wil think of it afterwards TODO:
 exports.endQuiz = async(req,res,next) =>{
     try {
-         
+            
     } catch (error) {
         next({
             status:400,
@@ -84,3 +86,61 @@ exports.endQuiz = async(req,res,next) =>{
         })
     }
 }
+
+// ==================================================================
+
+exports.showQuestions = async(req,res,next) =>{
+    try {
+        const {quizId} = req.params
+        const quiz = await db.Quiz.findById({_id:quizId})
+        
+        res.status(200).json(quiz.questions)
+        next()
+
+    } catch (error) {
+        next({
+            status:400,
+            message:error.message
+        })
+    }
+}
+
+exports.createQuestion = (req,res,next) =>{
+    try {
+        next()
+    } catch (error) {
+        next({
+            status:400,
+            message:error.message
+        })
+    }
+}
+
+exports.showQuestion = (req,res,next) =>{
+    try {
+        
+
+        next()
+
+    } catch (error) {
+        next({
+            status:400,
+            message:error.message
+        })
+    }
+}
+
+exports.answerQuestion = (req,res,next) =>{
+    try {
+        
+
+
+        next()
+    } catch (error) {
+        next({
+            status:400,
+            message:error.message
+        })
+    }
+}
+

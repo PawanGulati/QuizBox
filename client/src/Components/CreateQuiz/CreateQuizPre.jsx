@@ -2,6 +2,10 @@ import React, { Component, useState } from 'react'
 import { Grid, TextField ,makeStyles, Button, Paper} from '@material-ui/core'
 import CreateIcon from '@material-ui/icons/Create';
 
+import {connect} from 'react-redux'
+import { createQuiz } from '../../store/quiz/quiz.action';
+
+
 const useStyles = makeStyles(theme=>({
     leftPane:{
         height:'100%',
@@ -34,8 +38,11 @@ const useStyles = makeStyles(theme=>({
     appBarSpacer: theme.mixins.toolbar,
 }))
 
+const mapDispatchToProps = dispatch =>({
+    createQuiz: data =>dispatch(createQuiz(data))
+})
 
-export default function CreateQuizPre(props) {
+export default connect(null,mapDispatchToProps)(function CreateQuizPre(props) {
     const [inputs, setInputs] = useState({name:'',marks:0,no_of_questions:0,alloted_time:10});
     
     const inputChangeHandler = ({target:{value,name}}) =>{
@@ -43,6 +50,8 @@ export default function CreateQuizPre(props) {
     }
 
     const createQuizHandler = () =>{
+        props.createQuiz(inputs)
+
         props.history.push(`${props.match.url}/new`)
     }
 
@@ -107,7 +116,7 @@ export default function CreateQuizPre(props) {
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} className={classes.rightPane}>
-                    <div style={{}} className={classes.rightPaneDiv}>
+                    <div className={classes.rightPaneDiv}>
                         <Button 
                             variant='contained' 
                             color='primary' 
@@ -121,4 +130,4 @@ export default function CreateQuizPre(props) {
             </Grid>
         </div>
     )
-}
+})

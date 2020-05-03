@@ -5,7 +5,7 @@ const db = require('../models')
 exports.signUp = async(req,res,next)=>{
     try {
         const user = await new db.User(req.body)
-
+        
         const {
             _id,
             userName
