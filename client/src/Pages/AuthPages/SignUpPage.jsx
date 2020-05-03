@@ -17,6 +17,8 @@ import Container from '@material-ui/core/Container';
 
 import { connect } from 'react-redux';
 import { setCurUser, auth_fail } from '../../store/user/user.action';
+import {createStructuredSelector} from 'reselect'
+import {selectCurrentUser} from '../../store/user/user.selector'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,7 +47,11 @@ const mapDispatchToProps = dispatch =>({
   auth_fail : error => dispatch(auth_fail(error))
 })
 
-export default connect(null,mapDispatchToProps)(function SignUp({setCurUser,auth_fail}) {
+const mapStateToProps = createStructuredSelector({
+  current_user:selectCurrentUser
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(function SignUp({setCurUser,auth_fail,current_user}) {
   const classes = useStyles();
 
     const [inputs,setInputs] = useState({userName:'',email:'',password:'',conform_password:''})
@@ -85,7 +91,7 @@ export default connect(null,mapDispatchToProps)(function SignUp({setCurUser,auth
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      {this.props.current_user?<Redirect to='/dashboard'/>:null}
+      {current_user?<Redirect to='/dashboard'/>:null}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
