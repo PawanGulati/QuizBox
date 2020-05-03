@@ -3,7 +3,8 @@ import Axios from "axios";
 import store from '../../store'
 import {auth_fail} from '../../store/user/user.action'
 
-Axios.defaults.baseURL = 'http://localhost:8080'
+if(process.env.NODE_ENV !== 'production')
+    Axios.defaults.baseURL = 'http://localhost:8080'
 
 // Axios calling function
 export const call = async (method, path, data) => {
