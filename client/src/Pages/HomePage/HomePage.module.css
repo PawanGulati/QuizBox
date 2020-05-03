@@ -8,5 +8,39 @@
 .root > section{
     height: 100%;
     /* border:2px solid black; */
-    color:rgb(228, 156, 144)
+    display:flex;
+}
+
+.leftPane{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:0 2rem ;
+}
+
+.rightPane{
+    padding-top:6rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.leftpane_main_div{
+    display: flex;
+    flex-direction: column;
+    height:70%;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.quiz_box_title{
+    display: flex;
+    width:100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.login_button{
+    word-spacing: 2em;
+    height: 4rem;
 }
