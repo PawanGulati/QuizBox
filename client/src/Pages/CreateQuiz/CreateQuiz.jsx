@@ -20,8 +20,8 @@ export default function CreateQuiz(props) {
     return (
         <div className={classes.root}>
             <Switch>
-                <Route path={props.match.url} render={(props)=><CreateQuizPre {...props}/>}/>
-                <Route path={`${props.match.url}/new`} component={CreateQues}/>        
+                <Route exact path={props.match.url} render={(props)=><CreateQuizPre {...props}/>}/>
+                <Route exact path={`${props.match.url}/new`} component={CreateQues}/>        
             </Switch>
         </div>
     )

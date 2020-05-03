@@ -21,7 +21,7 @@ export default connect(mapStateToProps)(class DashBoard extends Component {
                 {!current_user ? <Redirect to='/login?xoxo' /> : null}
                 <Switch>
                     <Route exact path={`${match.url}`} component={DashBoardCards}/>
-                    <Route exact path={`${match.url}/quiz`} component={CreateQuiz}/>
+                    <Route path={`${match.url}/quiz`} component={CreateQuiz}/>
                 </Switch>
             </div>
         )
