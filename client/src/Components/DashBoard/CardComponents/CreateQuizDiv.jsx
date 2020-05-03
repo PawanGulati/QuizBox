@@ -10,7 +10,8 @@ const useStyles = makeStyles(theme=>({
         width:'100%',
     },
     title:{
-        color:'white'
+        color:'white',
+        textAlign:'left'
     }
 }))
 
@@ -22,6 +23,7 @@ export default function CreateQuizDiv({history,match}) {
         <Typography component="h2" variant="h6" className={classes.title} gutterBottom>
             Create Quiz
         </Typography>
+        <Divider />
         <Button
             color='secondary'
             variant='contained'

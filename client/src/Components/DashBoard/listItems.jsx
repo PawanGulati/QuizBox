@@ -8,10 +8,26 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import InfoIcon from '@material-ui/icons/Info';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
-import { Link } from 'react-router-dom';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-export const ListItems = (
-  <div>
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import {createStructuredSelector} from 'reselect'
+import {selectCurrentUser} from '../../store/user/user.selector'
+import { logout } from '../../store/user/user.action';
+
+const mapStateToProps = createStructuredSelector({
+  current_user:selectCurrentUser
+})
+
+const mapDispatchToProps = dispatch =>({
+  logout: () => dispatch(logout())
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(function ListItems({current_user,logout}){
+  return <div>
     <ListItem button>
       <ListItemIcon>
       <Link to='/dashboard'><DashboardIcon /></Link>
@@ -25,10 +41,11 @@ export const ListItems = (
         <ListItemText primary="Chat Now" />
     </ListItem>
     <ListItem button>
-      <ListItemIcon>
-      <Link to='/dashboard'><BarChartIcon /></Link>
+      <ListItemIcon>{
+      current_user ? <Link to='/' onClick={()=>logout()}><ExitToAppIcon /></Link> : <Link to='/login'><VpnKeyIcon /></Link>
+      }
       </ListItemIcon>
-      <ListItemText primary="Quizzes" />
+      {current_user ? <ListItemText primary="Logout" /> : <ListItemText primary="Login" />}
     </ListItem>
     <ListItem button>
       <ListItemIcon>
@@ -43,4 +60,4 @@ export const ListItems = (
       <ListItemText primary="Contact Us" />
     </ListItem>
   </div>
-);
+})
