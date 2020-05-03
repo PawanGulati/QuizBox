@@ -36,6 +36,7 @@ export const getMyQuizzes = () =>{
     return async dispatch =>{
         try {
             const quizzes = await api.call('get','quiz/user')
+            console.log(quizzes);
             
             
             dispatch(set_quizzes(quizzes))
