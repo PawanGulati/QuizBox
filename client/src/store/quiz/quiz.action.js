@@ -1,4 +1,4 @@
-import {SET_QUIZ,SET_QUIZZES,QUIZ_FAIL} from './quiz.types'
+import {SET_QUIZ,SET_QUIZZES,QUIZ_FAIL, QUIZ_COMP_CLOSE} from './quiz.types'
 
 import api from '../../services/api/api'
 
@@ -18,14 +18,21 @@ export const quiz_fail = error =>({
     error
 })
 
+export const quiz_err_comp_close = () =>({
+    type:QUIZ_COMP_CLOSE
+})
+
 export const createQuiz = data =>{
     return async dispatch =>{
         try {
             console.log(data);
             
             const quiz = await api.call('post','quiz',data)
+            console.log(quiz);
+            
             
             dispatch(set_quiz(quiz))
+            return quiz
 
         } catch (err) {
             const {error} = err.response.data

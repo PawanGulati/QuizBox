@@ -1,9 +1,10 @@
-import {SET_QUIZ,SET_QUIZZES, QUIZ_FAIL} from './quiz.types'
+import {SET_QUIZ,SET_QUIZZES, QUIZ_FAIL, QUIZ_COMP_CLOSE} from './quiz.types'
 
 const initialState = {
     quizzes:[],
     quiz:null,
     error:null,
+    openErrComp:false
     // loading:false
 }
 
@@ -24,8 +25,15 @@ export const quizReducer = (state=initialState,action) =>{
         case QUIZ_FAIL:
             return{
                 ...state,
-                error:action.error
+                error:action.error.message,
+                openErrComp:true
             }
+        case QUIZ_COMP_CLOSE:
+            return{
+                ...state,
+                openErrComp:false,
+                error:null
+            }        
         default:
             return state
     }

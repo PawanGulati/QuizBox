@@ -1,10 +1,14 @@
-import {AUTH_FAIL,AUTH_SUCCESS,AUTH_START} from './user.types'
+import {AUTH_FAIL,AUTH_SUCCESS,AUTH_START, AUTH_COMP_CLOSE} from './user.types'
 
 import api from '../../services/api/api'
 
 export const auth_fail = error =>({
     type:AUTH_FAIL,
     error
+})
+
+export const auth_err_comp_close = () =>({
+    type:AUTH_COMP_CLOSE
 })
 
 export const auth_success = user =>({

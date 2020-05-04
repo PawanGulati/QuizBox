@@ -19,4 +19,11 @@ export const selectAuthLoading = createSelector(
     user => user.loading
 )
 
+// this selector is for opening error snackbar 
+export const selectAuthErrCompOpen = createSelector(
+    [selectUser],
+    user => user.openErrComp
+)
+
+
 

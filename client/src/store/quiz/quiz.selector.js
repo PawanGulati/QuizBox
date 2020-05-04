@@ -14,7 +14,18 @@ export const selectCurQuiz = createSelector(
     quiz => quiz.quiz
 )
 
+export const selectQuizError = createSelector(
+    [selectQuiz],
+    quiz => quiz.error
+)
+
 export const selectQuizCount = createSelector(
     [selectQuizzes],
     quizzes => quizzes.length
+)
+
+// this selector is for opening error snackbar 
+export const selectQuizErrCompOpen = createSelector(
+    [selectQuiz],
+    quiz => quiz.openErrComp
 )

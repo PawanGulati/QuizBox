@@ -3,10 +3,14 @@ const router = require('express').Router()
 const control = require('../controllers')
 
 const auth = require('../middleware/auth')
+
+const {quizCreateValidation}  = require('../validation/quiz')
+const {runValidation} = require('../validation')
+
 // show all quizzes and create one => '/api/quiz/'
 router.route('/')
     .get(control.showQuizzes)
-    .post(auth,control.createQuiz)
+    .post(auth,quizCreateValidation,runValidation,control.createQuiz)
 
 router.route('/user')
     .get(auth,control.showMyQuizzes)

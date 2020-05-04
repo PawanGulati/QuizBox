@@ -1,10 +1,18 @@
 import React, { Component, useState } from 'react'
 import { Grid, TextField ,makeStyles, Button, Paper} from '@material-ui/core'
 import CreateIcon from '@material-ui/icons/Create';
+import Snackbar  from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import {connect} from 'react-redux'
-import { createQuiz } from '../../store/quiz/quiz.action';
+import { createQuiz, quiz_err_comp_close, quiz_fail } from '../../store/quiz/quiz.action';
+import { createStructuredSelector } from 'reselect';
+import { selectQuizErrCompOpen,selectQuizError } from '../../store/quiz/quiz.selector';
 
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}  
 
 const useStyles = makeStyles(theme=>({
     leftPane:{
@@ -40,26 +48,47 @@ const useStyles = makeStyles(theme=>({
 }))
 
 const mapDispatchToProps = dispatch =>({
-    createQuiz: data =>dispatch(createQuiz(data))
+    createQuiz: data =>dispatch(createQuiz(data)),
+    quiz_err_comp_close: ()=>dispatch(quiz_err_comp_close()),
+    quiz_fail:()=>dispatch(quiz_fail())
 })
 
-export default connect(null,mapDispatchToProps)(function CreateQuizPre(props) {
+const mapStateToProps = createStructuredSelector({
+    open_err_comp:selectQuizErrCompOpen,
+    quiz_error:selectQuizError
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(function CreateQuizPre(props) {
     const [inputs, setInputs] = useState({name:'',marks:10,no_of_questions:1,alloted_time:10});
     
     const inputChangeHandler = ({target:{value,name}}) =>{
         setInputs({...inputs,[name]:value})
     }
 
-    const createQuizHandler = () =>{
-        props.createQuiz(inputs)
-
-        props.history.push(`${props.match.url}/new`)
+    const createQuizHandler = async () =>{
+        try{
+            const quiz = await props.createQuiz(inputs)
+            if(quiz)
+                props.history.push(`${props.match.url}/new`)
+        }catch(error){
+            props.quiz_fail({message:error.message})
+        }
     }
+
+    // Error Snackbar implementation
+    const error = props.quiz_error && (
+        <Snackbar open={props.open_err_comp} autoHideDuration={3000} onClose={props.quiz_err_comp_close}>
+        <Alert onClose={props.quiz_err_comp_close} severity="warning">
+            {props.quiz_error}
+        </Alert>
+        </Snackbar>
+    )
 
     const classes = useStyles()
 
     return (
         <div style={{height:'100%'}}>
+            {error}
             <div className={classes.appBarSpacer} />
             <Grid container style={{height:'calc(100% - 71px)'}}>
                 <Grid item xs={12} sm={6} className={classes.leftPane}>

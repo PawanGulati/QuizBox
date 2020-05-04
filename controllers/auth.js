@@ -12,7 +12,8 @@ exports.signUp = async(req,res,next)=>{
         } = user
 
         const token = await user.generateToken()
-
+        // console.log(user);
+        
         await user.save()
 
         res.json({

@@ -8,17 +8,14 @@ const userSchema = new mongoose.Schema({
     userName: {
         type: String,
         trim:true,
-        required: 'Enter your userName',
     },
     email: {
         type: String,
         unique: true,
         trim:true,
-        required: 'Enter your Email',
     },
     password: {
         type: String,
-        required: "Enter your password",
         trim: true,
     },
     quizzesCreated:[{

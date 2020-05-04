@@ -1,9 +1,10 @@
-import {AUTH_FAIL,AUTH_START,AUTH_SUCCESS} from './user.types'
+import {AUTH_FAIL,AUTH_START,AUTH_SUCCESS, AUTH_COMP_CLOSE} from './user.types'
 
 const initialState = {
     current_user:null,
     loading:false,
-    error:null
+    error:null,
+    openErrComp:false
 }
 
 export const userReducer = (state=initialState,action) =>{
@@ -25,7 +26,14 @@ export const userReducer = (state=initialState,action) =>{
             return {
                 ...state,
                 loading:false,
-                error:action.error
+                error:action.error.message,
+                openErrComp:true
+            }    
+        case AUTH_COMP_CLOSE:
+            return{
+                ...state,
+                openErrComp:false,
+                error:null
             }    
         default:
             return state

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {createStructuredSelector} from 'reselect'
-import {selectCurrentUser} from '../../store/user/user.selector'
+import {selectCurrentUser, selectAuthError, selectAuthErrCompOpen} from '../../store/user/user.selector'
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -15,10 +15,17 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Snackbar  from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import { connect } from 'react-redux';
-import {setCurUser, auth_fail} from '../../store/user/user.action'
+import {setCurUser, auth_fail, auth_err_comp_close} from '../../store/user/user.action'
 import { Redirect } from 'react-router';
+
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,14 +49,17 @@ const useStyles = makeStyles((theme) => ({
 
 const mapDispatchToProps = dispatch =>({
   setCurUser : (path,data) => dispatch(setCurUser(path,data)),
-  auth_fail : error => dispatch(auth_fail(error))
+  auth_fail : error => dispatch(auth_fail(error)),
+  auth_err_comp_close : () => dispatch(auth_err_comp_close())
 })
 
 const mapStateToProps = createStructuredSelector({
-  current_user:selectCurrentUser
+  current_user:selectCurrentUser,
+  auth_error:selectAuthError,
+  open_err_comp:selectAuthErrCompOpen
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)(function SignIn({setCurUser,auth_fail,history,current_user}) {
+export default connect(mapStateToProps,mapDispatchToProps)(function SignIn({auth_error,setCurUser,auth_fail,history,current_user,open_err_comp,auth_err_comp_close}) {
   const classes = useStyles();
 
   const [inputs,setInputs] = useState({email:'',password:''})
@@ -82,11 +92,22 @@ export default connect(mapStateToProps,mapDispatchToProps)(function SignIn({setC
     })
   }
 
+  // Error Snackbar implementation
+  const error = auth_error && (
+    <Snackbar open={open_err_comp} autoHideDuration={3000} onClose={auth_err_comp_close}>
+      <Alert onClose={auth_err_comp_close} severity="warning">
+        {auth_error}
+      </Alert>
+    </Snackbar>
+  )
+
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       {current_user?<Redirect to='/dashboard'/>:null}
       <div className={classes.paper}>
+        {error}
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
