@@ -23,6 +23,10 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 
+// routes
+app.use('/api/auth',auth)
+app.use('/api/quiz',quiz)
+
 // for deployment purpose
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'))
@@ -32,9 +36,7 @@ if(process.env.NODE_ENV === 'production'){
     })
 }
 
-// routes
-app.use('/api/auth',auth)
-app.use('/api/quiz',quiz)
+
 
 // error handling
 app.use(control.notFound)
