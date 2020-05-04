@@ -25,15 +25,15 @@ const useStyles = makeStyles(theme=>({
     create_icon:{
         display:'flex',
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
     },
     go_green:{
-        color:'green'
+        color:theme.palette.secondary.main
     }
 }))
 
 
-export default function Question() {
+export default function Question({ques_sub,handleOpenEditor}) {
     const classes = useStyles()
 
     return (
@@ -41,21 +41,33 @@ export default function Question() {
             <Grid item sm={6}>
                 <Paper className={classes.ques_paper}>
                     <Typography variant='h4' style={{paddingLeft:'2em'}} className={classes.quiz_name}>Create Question</Typography>
-                    <CheckCircleTwoToneIcon style={{fontSize:'3em',position:'absolute',right:0}}/>
+                    <CheckCircleTwoToneIcon 
+                        style={{fontSize:'3.5em',position:'absolute',right:0}}
+                        className={ques_sub ? classes.go_green : null}
+                    />
                 </Paper>
             </Grid>
             <Grid item sm={6} className={classes.create_icon}>
                 <CreateTwoToneIcon fontSize='large' style={{margin:'1em'}}/>
-                <Typography variant='h4' >CREATE / EDIT</Typography>
+                <Typography 
+                    variant='h4' 
+                    style={{cursor:'pointer'}}
+                    onClick={()=>handleOpenEditor()}
+                >
+                    CREATE / EDIT
+                </Typography>
             </Grid>
             <Grid item sm={6} className={classes.create_icon}>
-                <DeleteForeverTwoToneIcon fontSize='large' style={{margin:'1em'}}/>
+                <DeleteForeverTwoToneIcon fontSize='large' style={{margin:'1em',cursor:'pointer'}}/>
                 <Typography variant='h4' >DELETE </Typography>
             </Grid>
             <Grid item sm={6}>
                 <Paper className={classes.ques_paper}>
                     <Typography variant='h4' style={{paddingLeft:'2em'}} className={classes.quiz_name}>Create Option</Typography>
-                    <CheckCircleTwoToneIcon style={{fontSize:'3em',position:'absolute',right:0}}/>
+                    <CheckCircleTwoToneIcon 
+                        style={{fontSize:'3.5em',position:'absolute',right:0}}
+                        className={ques_sub ? classes.go_green : null}
+                    />
                 </Paper>
             </Grid>
         </Grid>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -12,11 +12,12 @@ import {makeStyles, Paper} from '@material-ui/core'
 import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
 import DeleteForeverTwoToneIcon from '@material-ui/icons/DeleteForeverTwoTone';
-import Question from './Questions/Question'
+import Questions from './Questions/Questions'
 
 const useStyles = makeStyles(theme=>({
     root:{
         height:'100%',
+        overflowY:'auto'
     },
     appBarSpacer: theme.mixins.toolbar,
     quiz_name:{
@@ -26,7 +27,8 @@ const useStyles = makeStyles(theme=>({
         backgroundColor:theme.palette.secondary.main,
         color:'#ffffff',
         textAlign:'center',
-        padding:'1em 0'
+        padding:'1em 0',
+        margin:'2rem 0'
     },
 }))
 
@@ -39,26 +41,25 @@ export default connect(mapStateToProps)(function CreateQues({current_quiz}) {
 
     const {alloted_time,name,marks,no_of_questions} = current_quiz
 
+    const [no_of_unsub_ques,set_unsub_ques] = useState(no_of_questions)
+
     return (
         <div className={classes.root}>
-        <div className={classes.appBarSpacer} />
-            <Grid container style={{padding:'1em 2em'}}>
+            <div className={classes.appBarSpacer} />    
+            <Grid container style={{padding:'1em 2em',overflowY:'auto'}}>
                 <Grid item xs={12}>
                     <Typography variant='h2' className={classes.quiz_name}>{name}</Typography>
                 </Grid>
-                <Grid item sm={4} style={{padding:'0 5em',margin:`2em 0`}}>
+                <Grid item sm={4} style={{padding:'0 5em'}}>
                     <Paper className={classes.paper}><Typography>Marks :{marks}</Typography></Paper>
                 </Grid>
-                <Grid item sm={4} style={{padding:'0 5em',margin:`2em 0`}}>
+                <Grid item sm={4} style={{padding:'0 5em'}}>
                     <Paper className={classes.paper}><Typography>No. of Questions :{no_of_questions}</Typography></Paper>
                 </Grid>
-                <Grid item sm={4} style={{padding:'0 5em',margin:`2em 0`}}>
+                <Grid item sm={4} style={{padding:'0 5em'}}>
                     <Paper className={classes.paper}><Typography>Alloted Time :{alloted_time}</Typography></Paper>
                 </Grid>
-                <Grid item xs={12}>
-                    <Typography variant='h4' align='left' style={{borderBottom:'5px solid',marginRight:'31em'}}>Questions :</Typography>
-                </Grid>
-                <Question />
+                <Questions no_of_unsub_ques={no_of_unsub_ques} set_unsub_ques={set_unsub_ques}/>
             </Grid>
         </div>
     )

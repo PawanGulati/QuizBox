@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme=>({
     },
     rightPaneDiv:{
         height:'30rem',
+        width:'100%',
         display:'flex',
         justifyContent:'center',
         alignItems:'center',
@@ -43,7 +44,7 @@ const mapDispatchToProps = dispatch =>({
 })
 
 export default connect(null,mapDispatchToProps)(function CreateQuizPre(props) {
-    const [inputs, setInputs] = useState({name:'',marks:0,no_of_questions:0,alloted_time:10});
+    const [inputs, setInputs] = useState({name:'',marks:10,no_of_questions:1,alloted_time:10});
     
     const inputChangeHandler = ({target:{value,name}}) =>{
         setInputs({...inputs,[name]:value})
@@ -59,7 +60,8 @@ export default connect(null,mapDispatchToProps)(function CreateQuizPre(props) {
 
     return (
         <div style={{height:'100%'}}>
-            <Grid container style={{height:'100%'}}>
+            <div className={classes.appBarSpacer} />
+            <Grid container style={{height:'calc(100% - 71px)'}}>
                 <Grid item xs={12} sm={6} className={classes.leftPane}>
                     <TextField 
                         variant="filled"
