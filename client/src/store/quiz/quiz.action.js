@@ -21,6 +21,8 @@ export const quiz_fail = error =>({
 export const createQuiz = data =>{
     return async dispatch =>{
         try {
+            console.log(data);
+            
             const quiz = await api.call('post','quiz',data)
             
             dispatch(set_quiz(quiz))

@@ -23,6 +23,10 @@ const QuizSchema = new mongoose.Schema({
     alloted_time:{
         type:Number,
         required:true
+    },
+    marks:{
+        type:Number,
+        required:true
     }
 },{timestamps:true})
 

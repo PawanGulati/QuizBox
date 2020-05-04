@@ -1,10 +1,10 @@
 import {createSelector} from 'reselect'
 
 // input selectors
-const selectQuesState = state = state.ques
+const selectQuestion = state => state.ques
 
 // output selectors
-export const selectQuestion = createSelector(
-    [selectQuesState],
+export const selectCurQues = createSelector(
+    [selectQuestion],
     ques => ques.question
 )

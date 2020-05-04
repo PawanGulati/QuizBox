@@ -1,8 +1,15 @@
-import {CREATE_QUES, QUES_FAIL} from './question.types'
+import {SET_QUESTION,SET_QUESTIONS,QUES_FAIL} from './question.types'
 
-export const ques_success = ques =>({
-    type:CREATE_QUES,
+import api from '../../services/api/api'
+
+export const set_question = ques =>({
+    type:SET_QUESTION,
     ques
+})
+
+export const set_questions = quess =>({
+    type:SET_QUESTIONS,
+    quess
 })
 
 export const ques_fail = error =>({
@@ -13,12 +20,12 @@ export const ques_fail = error =>({
 export const createQues = (quizID,data) =>{
     return async dispatch =>{
         try {
-            const ques = await api.call('post',`quiz/${quizID}/question/`)
+            const ques = await api.call('post',`quiz/${quizID}/question/`,data)
 
-            dispatch(ques_success(ques))    
+            // dispatch(set_question(ques))    
         } catch (err) {
             const {error} = err.response.data
-            dispatch(addError(error))           
+            dispatch(ques_fail(error))           
         }
     }
 }

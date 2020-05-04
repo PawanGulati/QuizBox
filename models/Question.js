@@ -14,16 +14,10 @@ const QuestionSchema = new mongoose.Schema({
     options:[OptionSchema],
     answer:{
         type:String,
-        required:true,
-        lowercase:true
     },
     quiz:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Quiz'
-    },
-    marks:{
-        type:Number,
-        trim:true
     }
 },{timestamps:true})
 

@@ -26,6 +26,7 @@ exports.createQuiz = async(req,res,next) =>{
             ...req.body,
             author:user._id
         })
+        console.log(quiz);
         
         user.quizzesCreated.push(quiz)
 
@@ -105,8 +106,30 @@ exports.showQuestions = async(req,res,next) =>{
     }
 }
 
-exports.createQuestion = (req,res,next) =>{
+exports.createQuestion = async (req,res,next) =>{
     try {
+        const {quizID} = req.params
+        const quiz = await db.Quiz.findById({_id:quizID})
+
+        const {question,options,answer} = req.body
+
+        const ques = new db.Question({
+            question,
+            options:options.map(option =>({option})),
+            answer,
+            quiz:quiz._id
+        })
+
+        quiz.questions.push(ques._id)
+
+        await quiz.save()
+        await ques.save()
+
+        res.status(200).json({
+            ...question._doc,
+            quiz:quiz._id
+        })
+
         next()
     } catch (error) {
         next({
