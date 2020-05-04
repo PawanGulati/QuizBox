@@ -40,7 +40,7 @@ const mapStateToProps = createStructuredSelector({
     totalQuiz:selectQuizCount
 })
 
-export default connect(mapStateToProps) (function TotalQuizDiv({totalQuiz,dispatch}) {
+export default connect(mapStateToProps) (function TotalQuizDiv({totalQuiz,dispatch,history,match}) {
     const classes = useStyles()
 
     useEffect(()=>{
@@ -66,6 +66,7 @@ export default connect(mapStateToProps) (function TotalQuizDiv({totalQuiz,dispat
                     variant='contained' 
                     startIcon={<VisibilityIcon style={{fontSize:'2em'}}/>}
                     style={{height:'40%',width:'40%',margin:'2em'}}
+                    onClick={()=>{history.push(`${match.url}/quizzes`)}}
                 >
                     My Quizzes
                 </Button>

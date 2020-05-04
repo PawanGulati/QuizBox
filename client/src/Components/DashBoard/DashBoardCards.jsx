@@ -69,7 +69,7 @@ export default function Dashboard(props) {
             {/* Create Quiz */}
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
-                <TotalQuizDiv />
+                <TotalQuizDiv {...props}/>
               </Paper>
             </Grid>
             {/* Total Quiz */}

@@ -50,7 +50,7 @@ exports.createQuiz = async(req,res,next) =>{
 exports.showMyQuizzes = async(req,res,next) =>{
     try {
         const {_id : userId} = req.user
-        const user = await db.User.findById({_id:userId})
+        const user = await db.User.findById({_id:userId}).populate('quizzesCreated')
 
         res.status(200).json(user.quizzesCreated)
 

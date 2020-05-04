@@ -7,6 +7,7 @@ import classes from './DashBoard.module.css'
 import { connect } from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 import {selectCurrentUser} from '../../store/user/user.selector'
+import MyQuizzes from '../../Components/ShowQuiz/MyQuizzes'
 
 const mapStateToProps = createStructuredSelector({
     current_user:selectCurrentUser
@@ -22,6 +23,7 @@ export default connect(mapStateToProps)(class DashBoard extends Component {
                 <Switch>
                     <Route exact path={`${match.url}`} component={DashBoardCards}/>
                     <Route path={`${match.url}/quiz`} component={CreateQuiz}/>
+                    <Route exact path={`${match.url}/quizzes`} component={MyQuizzes}/>
                 </Switch>
             </div>
         )
