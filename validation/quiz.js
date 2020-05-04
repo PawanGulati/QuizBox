@@ -22,5 +22,17 @@ exports.quizCreateValidation = [
             throw new Error('Give Valid no. of Questions');
         }else
             return true
+    }),
+    check('marks').custom((value, { req }) => {
+        if (value <= 0) {
+            throw new Error('Give Valid Marks');
+        }else
+            return true
+    }),
+    check('alloted_time').custom((value, { req }) => {
+        if (value <= 0) {
+            throw new Error('Give Valid Alloted Time');
+        }else
+            return true
     })
 ]
