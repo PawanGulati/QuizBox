@@ -5,6 +5,18 @@ exports.quizCreateValidation = [
         .not()
         .isEmpty()
         .withMessage('Quiz Name Required'),
+    check('marks')
+        .not()
+        .isEmpty()
+        .withMessage('Quiz Marks Required'),
+    check('alloted_time')
+        .not()
+        .isEmpty()
+        .withMessage('Quiz Alloted Time Required'),
+    check('no_of_questions')
+        .not()
+        .isEmpty()
+        .withMessage('Quiz No. of Question Required'),    
     check('no_of_questions').custom((value, { req }) => {
         if (value <= 0) {
             throw new Error('Give Valid no. of Questions');
