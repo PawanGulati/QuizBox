@@ -8,3 +8,8 @@ export const selectCurQues = createSelector(
     [selectQuestion],
     ques => ques.question
 )
+
+export const selectQuestions = createSelector(
+    [selectQuestion],
+    ques => ques.questions
+)

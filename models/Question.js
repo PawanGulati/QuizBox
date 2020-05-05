@@ -11,7 +11,7 @@ const QuestionSchema = new mongoose.Schema({
         type:String,
         trim:true
     },
-    options:[OptionSchema],
+    options:[String],
     answer:{
         type:String,
     },

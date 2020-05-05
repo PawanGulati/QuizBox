@@ -40,6 +40,7 @@ router.route('/:quizID/question')
 router.route('/:quizID/question/:id')
     .get(auth,control.showQuestion)
     .post(control.answerQuestion)
+    .patch(auth,control.updateQuestion)
     // .delete(control.deleteQuestion)  // TODO: Will see you later
     // .patch(control.updateQuestion)        
 
