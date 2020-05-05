@@ -12,7 +12,7 @@ ___
 ![alt Text](https://github.com/PawanGulati/MyTutorQuizBox/blob/master/client/src/assets/Snaps/Quiz4.PNG "DashBoard")
 ___
 ## Create Quizzes
-![alt Text](https://github.com/PawanGulati/MyTutorQuizBox/blob/master/client/src/assets/Snaps/Quiz5.PNG "CreateqUIZ")
+![alt Text](https://github.com/PawanGulati/MyTutorQuizBox/blob/master/client/src/assets/Snaps/Quiz10.PNG "CreateqUIZ")
 ___
 ## Install
 
