@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Question from './Question'
 import DialogEditor from '../../TinyMCE/DialogEditor'
 
@@ -18,23 +18,36 @@ import Typography from '@material-ui/core/Typography'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {createStructuredSelector} from 'reselect'
-import {selectCurQuiz} from '../../../store/quiz/quiz.selector'
-import {set_question, createQues} from '../../../store/question/question.action'
-import { selectCurQues } from '../../../store/question/question.selector'
+import {selectCurQuiz, selectQuizzes} from '../../../store/quiz/quiz.selector'
+import {set_question, createQues, getMyQuestions, updateQues} from '../../../store/question/question.action'
+import { selectCurQues, selectQuestions } from '../../../store/question/question.selector'
 
 const mapStateToProps = createStructuredSelector({
-    quiz:selectCurQuiz,
-    currQuestion:selectCurQues
+    currQuestion:selectCurQues,
+    questions:selectQuestions
 })
 
 const mapDispatchToProps = dispatch =>({
     set_question : ques => dispatch(set_question(ques)),
-    createQues: (quizID,data) => dispatch(createQues(quizID,data))
+    createQues: (quizID,data) => dispatch(createQues(quizID,data)),
+    updateQues:(quizID,quesID,data)=>dispatch(updateQues(quizID,quesID,data)),
+    getMyQuestions : (quizID)=>dispatch(getMyQuestions(quizID))
 })
 
-export default connect(mapStateToProps,mapDispatchToProps) (function Questions({quiz:{_id,no_of_questions},set_question,createQues,currQuestion}) {
-    const [no_of_unsub_ques,set_unsub_ques] = useState(no_of_questions)
-    const [ques_submitted,set_ques_submitted] = useState(false)
+export default connect(mapStateToProps,mapDispatchToProps) (function Questions(props) {
+    
+    const {
+        questions,
+        getMyQuestions,
+        quiz:{_id,no_of_questions},
+        set_question,
+        createQues,
+        updateQues,
+        currQuestion
+    } = props
+
+    // const [no_of_unsub_ques,set_unsub_ques] = useState(no_of_questions)
+    
     const [open, setOpen] = React.useState(false);
 
     const handleOpenEditor = () => {
@@ -47,46 +60,51 @@ export default connect(mapStateToProps,mapDispatchToProps) (function Questions({
 
     // console.log(no_of_unsub_ques);
 
-    const handleSubmitQues = (question) =>{
-        set_ques_submitted(true)
-        setOpen(false);
-
-        // dispatch(setQues)
-        set_question(question)
-        // console.log(question);
-        
-    }
 
     const handleNextClick = () =>{
-        set_unsub_ques(no_of_unsub_ques - 1);
-        set_ques_submitted(false)
+        // set_unsub_ques(no_of_unsub_ques - 1);
+        // set_ques_submitted(false)
     
         // dispatch(createQues)
         createQues(_id,currQuestion)
     }
 
+    // no_of_unsub_ques === 0 ? <Redirect to='/dashboard'/> : null
+
+
     return (
         <>
-            {no_of_unsub_ques === 0 ? <Redirect to='/dashboard'/> : null}
             <Grid container>
                 <Grid item xs={12}>
-                    <Typography variant='h4' align='left' style={{margin:'3rem 0'}}>Question {no_of_questions - no_of_unsub_ques + 1}</Typography>
+                    <Typography variant='h4' align='left' style={{margin:'3rem 0'}}>Create Questions </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Question ques_sub={ques_submitted} handleOpenEditor={handleOpenEditor}/>
+                    <Question  handleOpenEditor={handleOpenEditor} questions={questions}/>
                 </Grid>
-                <Grid item xs={12} style={{margin:'2em 0'}}>
+                <Grid item xs={12} style={{margin:'2em 0 0 0'}}>
                     <Button 
                         variant='contained' 
-                        color='primary' 
+                        color='primary'
                         onClick={()=>handleNextClick()}
-                        disabled={!ques_submitted}
+                        disabled = {true}
                     >
-                        Submit {no_of_unsub_ques === 1 ? 'QUIZ':'this Question'}
+                        Submit Quiz
                     </Button>
                 </Grid>
             </Grid>
-            <DialogEditor handleClose={handleClose} open={open} handleSubmitQues={handleSubmitQues}/>
+            <DialogEditor 
+                id={_id} 
+                getMyQuestions={getMyQuestions} 
+                createQues={createQues} 
+                handleClose={handleClose} 
+                open={open} 
+                questions={questions}
+                updateQues={updateQues}
+                set_question={set_question}
+                no_of_questions={no_of_questions}
+                />
         </>
     )
 })
+
+

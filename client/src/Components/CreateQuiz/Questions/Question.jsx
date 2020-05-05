@@ -10,17 +10,21 @@ import DeleteForeverTwoToneIcon from '@material-ui/icons/DeleteForeverTwoTone';
 
 const useStyles = makeStyles(theme=>({
     quiz_name:{
-        fontFamily:'\'Montserrat\', sans-serif'
+        fontFamily:'\'Montserrat\', sans-serif',
+        width:'100%',
+    },
+    quiz_name_ques:{
+        margin:'1.5em 0'
     },
     ques_paper:{
         backgroundColor:theme.palette.primary.main,
         color:'#ffffff',
         display:'flex',
-        justifyContent:'space-between',
-        margin:'2em 3em',
-        height:'50px',
-        position:'relative',
-        alignItems:'center',
+        flexDirection:'column',
+        // margin:'2em 3em',
+        height:'100%',
+        padding:'1em',
+        // position:'relative',
     },
     create_icon:{
         display:'flex',
@@ -33,18 +37,17 @@ const useStyles = makeStyles(theme=>({
 }))
 
 
-export default function Question({ques_sub,handleOpenEditor}) {
+export default function Question({ques_sub,handleOpenEditor,questions}) {
     const classes = useStyles()
 
     return (
-        <Grid container>
-            <Grid item sm={6}>
+        <Grid container style={{height:'15rem'}}>
+            <Grid item sm={6} style={{height:'100%',padding:'2em'}}>
                 <Paper className={classes.ques_paper}>
-                    <Typography variant='h4' style={{paddingLeft:'2em'}} className={classes.quiz_name}>Create Question</Typography>
-                    <CheckCircleTwoToneIcon 
-                        style={{fontSize:'3.5em',position:'absolute',right:0}}
-                        className={ques_sub ? classes.go_green : null}
-                    />
+                    <Typography variant='h4' className={classes.quiz_name}>Start Creating Questions</Typography>
+                    <div style={{display:'flex',flexDirection:'column',justifyContent:'start'}}>
+                        <Typography variant='h5' className={classes.quiz_name_ques}>Questions Submitted : {questions.length}</Typography>
+                    </div>
                 </Paper>
             </Grid>
             <Grid item sm={6} className={classes.create_icon}>
@@ -57,19 +60,7 @@ export default function Question({ques_sub,handleOpenEditor}) {
                     CREATE / EDIT
                 </Typography>
             </Grid>
-            <Grid item sm={6} className={classes.create_icon}>
-                <DeleteForeverTwoToneIcon fontSize='large' style={{margin:'1em',cursor:'pointer'}}/>
-                <Typography variant='h4' >DELETE </Typography>
-            </Grid>
-            <Grid item sm={6}>
-                <Paper className={classes.ques_paper}>
-                    <Typography variant='h4' style={{paddingLeft:'2em'}} className={classes.quiz_name}>Create Option</Typography>
-                    <CheckCircleTwoToneIcon 
-                        style={{fontSize:'3.5em',position:'absolute',right:0}}
-                        className={ques_sub ? classes.go_green : null}
-                    />
-                </Paper>
-            </Grid>
+
         </Grid>
     )
 }

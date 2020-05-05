@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {makeStyles} from '@material-ui/core'
 
@@ -11,15 +11,17 @@ const useStyles = makeStyles(theme =>({
 }))
 
 
-export default function TinyEditor({type,handleQuesState}) {
+export default function TinyEditor({type,handleQuesState,ques_submitted,question}) {
     const classes = useStyles()
 
-    const [content, setContent] = useState("")
+    // const [content, setContent] = useState("")
+
+    // const [input,setInput] = useState({[type]:""})
 
     const handleEditorChange = (content, editor) => {
         // console.log('Content was updated:', content,editor);
-        setContent(content)
-        
+        // setContent(content)
+        // setInput({[type]:content})
         handleQuesState({[type]:content})
     }
 
@@ -42,6 +44,7 @@ export default function TinyEditor({type,handleQuesState}) {
                         bullist numlist outdent indent | help'
                 }}
                 onEditorChange={handleEditorChange}
+                value={question[type]}
             />
         </div>
     )

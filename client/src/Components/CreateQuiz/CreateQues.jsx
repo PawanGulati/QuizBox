@@ -13,6 +13,7 @@ import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
 import DeleteForeverTwoToneIcon from '@material-ui/icons/DeleteForeverTwoTone';
 import Questions from './Questions/Questions'
+import {getMyQuestions} from '../../store/question/question.action'
 
 const useStyles = makeStyles(theme=>({
     root:{
@@ -36,12 +37,18 @@ const mapStateToProps = createStructuredSelector({
     current_quiz:selectCurQuiz
 })
 
-export default connect(mapStateToProps)(function CreateQues({current_quiz}) {
+export default connect(mapStateToProps)(function CreateQues({current_quiz,dispatch}) {
     const classes = useStyles()
 
     const {alloted_time,name,marks,no_of_questions} = current_quiz
 
-    const [no_of_unsub_ques,set_unsub_ques] = useState(no_of_questions)
+    useEffect(()=>{
+        console.log(dispatch);
+        
+        dispatch(getMyQuestions(current_quiz._id))
+    },[])
+
+    // const [no_of_unsub_ques,set_unsub_ques] = useState(no_of_questions)
 
     return (
         <div className={classes.root}>
@@ -59,7 +66,7 @@ export default connect(mapStateToProps)(function CreateQues({current_quiz}) {
                 <Grid item sm={4} style={{padding:'0 5em'}}>
                     <Paper className={classes.paper}><Typography>Alloted Time :{alloted_time}</Typography></Paper>
                 </Grid>
-                <Questions no_of_unsub_ques={no_of_unsub_ques} set_unsub_ques={set_unsub_ques}/>
+                <Questions quiz={current_quiz}/>
             </Grid>
         </div>
     )
