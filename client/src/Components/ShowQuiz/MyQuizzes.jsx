@@ -3,10 +3,13 @@ import React from 'react'
 import {makeStyles, Typography, Paper, Divider} from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import CreateIcon from '@material-ui/icons/Create';
+
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { selectQuizzes } from '../../store/quiz/quiz.selector'
-
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme=>({
     root:{
@@ -32,7 +35,8 @@ const useStyles = makeStyles(theme=>({
     quiz_name:{
         fontFamily:'\'Barlow\', Cursive ',
         fontSize:'3em',
-        width:'100%',
+        flex:1,
+        textAlign:'center'
     },
     quiz_content:{
         width:'100%',
@@ -71,7 +75,11 @@ export default connect(mapStateToProps)(function MyQuizzes({quizzes}) {
                         quizzes.map(quiz =>(
                             <Grid key={quiz._id} item xs={12} sm={6} className={classes.quiz_grid}>
                                 <Paper className={classes.paper}>
-                                    <Typography className={classes.quiz_name}>{quiz.name}</Typography>
+                                    <div style={{display:'flex',alignItems:'center',width:'100%',padding:'0 1em'}}>
+                                        <Link to={`quiz/${quiz._id}`} ><VisibilityIcon fontSize='large' /></Link>
+                                        <Typography className={classes.quiz_name}>{quiz.name}</Typography>
+                                        <Link to={`quiz/${quiz._id}`} ><CreateIcon fontSize='large' /></Link>
+                                    </div>
                                     <Divider style={{border:'.5px solid white',width:'100%'}}/>
                                     <div className={classes.quiz_content}>
                                         <Typography className={classes.quiz_content_title} variant='h5'>Marks <div>{quiz.marks}</div></Typography>

@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme=>({
     },
     appBarSpacer: theme.mixins.toolbar,
     quiz_name:{
-        fontFamily:'\'Montserrat\', sans-serif'
+        fontFamily:'\'Montserrat\', sans-serif',
+        textAlign:'center'
     },
     paper:{
         backgroundColor:theme.palette.secondary.main,
@@ -37,7 +38,7 @@ const mapStateToProps = createStructuredSelector({
     current_quiz:selectCurQuiz
 })
 
-export default connect(mapStateToProps)(function CreateQues({current_quiz,dispatch}) {
+export default connect(mapStateToProps)(function CreateQues({current_quiz,dispatch,history}) {
     const classes = useStyles()
 
     const {alloted_time,name,marks,no_of_questions} = current_quiz
@@ -66,7 +67,7 @@ export default connect(mapStateToProps)(function CreateQues({current_quiz,dispat
                 <Grid item sm={4} style={{padding:'0 5em'}}>
                     <Paper className={classes.paper}><Typography>Alloted Time :{alloted_time}</Typography></Paper>
                 </Grid>
-                <Questions quiz={current_quiz}/>
+                <Questions quiz={current_quiz} history={history}/>
             </Grid>
         </div>
     )

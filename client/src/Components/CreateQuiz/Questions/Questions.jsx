@@ -43,7 +43,8 @@ export default connect(mapStateToProps,mapDispatchToProps) (function Questions(p
         set_question,
         createQues,
         updateQues,
-        currQuestion
+        currQuestion,
+        history
     } = props
 
     // const [no_of_unsub_ques,set_unsub_ques] = useState(no_of_questions)
@@ -81,7 +82,7 @@ export default connect(mapStateToProps,mapDispatchToProps) (function Questions(p
                 <Grid item xs={12}>
                     <Question  handleOpenEditor={handleOpenEditor} questions={questions}/>
                 </Grid>
-                <Grid item xs={12} style={{margin:'2em 0 0 0'}}>
+                <Grid item xs={12} style={{margin:'2em 0 0 0',textAlign:'center'}}>
                     <Button 
                         variant='contained' 
                         color='primary'
@@ -102,6 +103,7 @@ export default connect(mapStateToProps,mapDispatchToProps) (function Questions(p
                 updateQues={updateQues}
                 set_question={set_question}
                 no_of_questions={no_of_questions}
+                history={history}
                 />
         </>
     )
