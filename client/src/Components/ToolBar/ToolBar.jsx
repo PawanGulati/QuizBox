@@ -25,7 +25,8 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles(theme=>({
     root:{
-        display:'flex'
+        display:'flex',
+        textAlign:'center'
     },
     link:{
         margin:'.5em'

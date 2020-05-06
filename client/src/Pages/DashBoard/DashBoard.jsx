@@ -18,7 +18,7 @@ export default connect(mapStateToProps)(class DashBoard extends Component {
         const {match,current_user} = this.props
 
         return (
-            <div className={classes.root}>
+            <div className={classes.root} style={{overflowY:'auto'}}>
                 {!current_user ? <Redirect to='/login?xoxo' /> : null}
                 <Switch>
                     <Route exact path={`${match.url}`} component={DashBoardCards}/>
