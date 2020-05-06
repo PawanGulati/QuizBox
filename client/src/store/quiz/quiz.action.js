@@ -25,11 +25,7 @@ export const quiz_err_comp_close = () =>({
 export const createQuiz = data =>{
     return async dispatch =>{
         try {
-            console.log(data);
-            
             const quiz = await api.call('post','quiz',data)
-            console.log(quiz);
-            
             
             dispatch(set_quiz(quiz))
             return quiz
@@ -45,8 +41,6 @@ export const getMyQuizzes = () =>{
     return async dispatch =>{
         try {
             const quizzes = await api.call('get','quiz/user')
-            console.log(quizzes);
-            
             
             dispatch(set_quizzes(quizzes))
 

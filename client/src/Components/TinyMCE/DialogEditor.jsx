@@ -120,7 +120,6 @@ export default function FullScreenDialog({handleClose,open,questions,id,createQu
         else{
           await updateQues(id,questions[cur_ques_no-1]._id,ques)  
           // set editor content 
-          console.log(questions,cur_ques_no);
           
           if(questions.length === cur_ques_no){
             setQuestion({Question:'', Option1:'',Option2:'',Option3:'',Option4:'',answer:'Option1'})
@@ -131,7 +130,6 @@ export default function FullScreenDialog({handleClose,open,questions,id,createQu
             setQuestion({Question:question, Option1:options[0],Option2:options[1],Option3:options[2],Option4:options[3],answer:`Option${answerInOptIdx + 1}`})
           }
         }  
-        console.log(question);
         
         // updating new questions array
         getMyQuestions(id)

@@ -44,8 +44,6 @@ export default connect(mapStateToProps)(function CreateQues({current_quiz,dispat
     const {alloted_time,name,marks,no_of_questions} = current_quiz
 
     useEffect(()=>{
-        console.log(dispatch);
-        
         dispatch(getMyQuestions(current_quiz._id))
     },[])
 

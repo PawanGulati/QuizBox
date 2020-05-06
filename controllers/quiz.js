@@ -27,7 +27,7 @@ exports.createQuiz = async(req,res,next) =>{
             ...req.body,
             author:user._id
         })
-        console.log(quiz);
+        // console.log(quiz);
         
         user.quizzesCreated.push(quiz)
 
