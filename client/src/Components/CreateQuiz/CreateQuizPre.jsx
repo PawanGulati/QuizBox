@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import { createQuiz, quiz_err_comp_close, quiz_fail } from '../../store/quiz/quiz.action';
 import { createStructuredSelector } from 'reselect';
 import { selectQuizErrCompOpen,selectQuizError } from '../../store/quiz/quiz.selector';
+import { set_cur_ques_no } from '../../store/question/question.action';
 
 
 function Alert(props) {
@@ -50,7 +51,8 @@ const useStyles = makeStyles(theme=>({
 const mapDispatchToProps = dispatch =>({
     createQuiz: data =>dispatch(createQuiz(data)),
     quiz_err_comp_close: ()=>dispatch(quiz_err_comp_close()),
-    quiz_fail:()=>dispatch(quiz_fail())
+    quiz_fail:()=>dispatch(quiz_fail()),
+    set_cur_ques_no:(value)=>dispatch(set_cur_ques_no(value))
 })
 
 const mapStateToProps = createStructuredSelector({
@@ -68,6 +70,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(function CreateQuizPr
     const createQuizHandler = async () =>{
         try{
             const quiz = await props.createQuiz(inputs)
+            props.set_cur_ques_no(1)
             if(quiz)
                 props.history.push(`${props.match.url}/new`)
         }catch(error){

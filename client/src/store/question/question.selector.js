@@ -13,3 +13,8 @@ export const selectQuestions = createSelector(
     [selectQuestion],
     ques => ques.questions
 )
+
+export const selectCurQuesNo = createSelector(
+    [selectQuestion],
+    ques => ques.cur_ques_no
+)

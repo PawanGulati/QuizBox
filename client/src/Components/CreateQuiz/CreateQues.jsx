@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme=>({
 }))
 
 const mapStateToProps = createStructuredSelector({
-    current_quiz:selectCurQuiz
+    current_quiz:selectCurQuiz,
 })
 
 export default connect(mapStateToProps)(function CreateQues({current_quiz,dispatch,history}) {
@@ -46,8 +46,6 @@ export default connect(mapStateToProps)(function CreateQues({current_quiz,dispat
     useEffect(()=>{
         dispatch(getMyQuestions(current_quiz._id))
     },[])
-
-    // const [no_of_unsub_ques,set_unsub_ques] = useState(no_of_questions)
 
     return (
         <div className={classes.root}>

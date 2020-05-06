@@ -19,19 +19,21 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {createStructuredSelector} from 'reselect'
 import {selectCurQuiz, selectQuizzes} from '../../../store/quiz/quiz.selector'
-import {set_question, createQues, getMyQuestions, updateQues} from '../../../store/question/question.action'
-import { selectCurQues, selectQuestions } from '../../../store/question/question.selector'
+import {set_question, createQues, getMyQuestions, updateQues, set_cur_ques_no} from '../../../store/question/question.action'
+import { selectCurQues, selectQuestions, selectCurQuesNo } from '../../../store/question/question.selector'
 
 const mapStateToProps = createStructuredSelector({
     currQuestion:selectCurQues,
-    questions:selectQuestions
+    questions:selectQuestions,
+    cur_ques_no:selectCurQuesNo
 })
 
 const mapDispatchToProps = dispatch =>({
     set_question : ques => dispatch(set_question(ques)),
     createQues: (quizID,data) => dispatch(createQues(quizID,data)),
     updateQues:(quizID,quesID,data)=>dispatch(updateQues(quizID,quesID,data)),
-    getMyQuestions : (quizID)=>dispatch(getMyQuestions(quizID))
+    getMyQuestions : (quizID)=>dispatch(getMyQuestions(quizID)),
+    set_cur_ques_no:(value)=>dispatch(set_cur_ques_no(value))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps) (function Questions(props) {
@@ -44,7 +46,9 @@ export default connect(mapStateToProps,mapDispatchToProps) (function Questions(p
         createQues,
         updateQues,
         currQuestion,
-        history
+        history,
+        cur_ques_no,
+        set_cur_ques_no
     } = props
 
     // const [no_of_unsub_ques,set_unsub_ques] = useState(no_of_questions)
@@ -104,6 +108,8 @@ export default connect(mapStateToProps,mapDispatchToProps) (function Questions(p
                 set_question={set_question}
                 no_of_questions={no_of_questions}
                 history={history}
+                cur_ques_no={cur_ques_no}
+                set_cur_ques_no={set_cur_ques_no}
                 />
         </>
     )

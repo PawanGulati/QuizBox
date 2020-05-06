@@ -90,7 +90,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({handleClose,open,questions,id,createQues,updateQues,getMyQuestions,set_question,no_of_questions,history}) {
+export default function FullScreenDialog({set_cur_ques_no,cur_ques_no,handleClose,open,questions,id,createQues,updateQues,getMyQuestions,set_question,no_of_questions,history}) {
   const classes = useStyles();
   // some conditional styling 
   const answerClassStyling = (option,answer) =>{
@@ -106,7 +106,7 @@ export default function FullScreenDialog({handleClose,open,questions,id,createQu
 
   const [ques_submitted,set_ques_submitted] = useState(false)
   
-  const [cur_ques_no,set_cur_ques_no] = useState(1)
+  // const [cur_ques_no,set_cur_ques_no] = useState(1)
   
 
   const handleNextQues = async (id,ques) =>{

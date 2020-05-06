@@ -1,4 +1,4 @@
-import {SET_QUESTION,SET_QUESTIONS,QUES_FAIL} from './question.types'
+import {SET_QUESTION,SET_QUESTIONS,QUES_FAIL, SET_CUR_QUES_NO} from './question.types'
 
 import api from '../../services/api/api'
 
@@ -29,6 +29,11 @@ export const createQues = (quizID,data) =>{
         }
     }
 }
+
+export const set_cur_ques_no = (value) =>({
+    type:SET_CUR_QUES_NO,
+    curr_ques_no:value   
+})
 
 export const updateQues = (quizID,quesID,data) =>{
     return async dispatch =>{

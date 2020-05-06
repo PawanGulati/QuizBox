@@ -1,9 +1,10 @@
-import {SET_QUESTIONS,QUES_FAIL, SET_QUESTION} from './question.types'
+import {SET_QUESTIONS,QUES_FAIL, SET_QUESTION, SET_CUR_QUES_NO} from './question.types'
 
 const initialState = {
     question:null,  
     questions:[],
-    error:null
+    error:null,
+    cur_ques_no:1
 }
 
 export const questionReducer = (state=initialState,action) =>{
@@ -24,6 +25,11 @@ export const questionReducer = (state=initialState,action) =>{
             return {
                 ...state,
                 error:action.error
+            }
+        case SET_CUR_QUES_NO:
+            return {
+                ...state,
+                cur_ques_no:action.curr_ques_no
             }
         default:
             return state
