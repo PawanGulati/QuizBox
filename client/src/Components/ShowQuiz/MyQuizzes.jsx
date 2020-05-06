@@ -46,7 +46,8 @@ const useStyles = makeStyles(theme=>({
         fontFamily:'\'Montserrat\', Cursive',
         fontWeight:600,
         display:'flex',
-        justifyContent:'space-evenly',
+        justifyContent:'space-between',
+        padding:'0 3em',
         margin:'1em 0',
         '&:nth-child(2n + 1)':{
             // justifyContent:'space-around',
@@ -65,7 +66,7 @@ export default connect(mapStateToProps)(function MyQuizzes({quizzes}) {
     return (
         <div className={classes.root}>
             <div className={classes.appBarSpacer} />
-            <Container style={{overflowY:'auto',padding:'2rem 3rem'}}>
+            <Container style={{padding:'2rem 3rem'}}>
                 <Grid container>
                     {!quizzes.length?(
                         <Grid item xs={12}>
