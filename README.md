@@ -1,4 +1,3 @@
-#### <em>MY tutor247's</em>
 # <div align='center'>QUIZ BOX</div>
 
 ### <div align='center'>India's No.1 platform for creating and managing quizzezzzz</div>
